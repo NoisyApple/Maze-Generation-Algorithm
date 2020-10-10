@@ -19,3 +19,10 @@ body {
     }
   }
 }
+
+// Mobile devices.
+@media only screen and (max-device-width: 768px) {
+  body {
+    overflow: hidden;
+  }
+}
