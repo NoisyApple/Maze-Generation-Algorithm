@@ -10,12 +10,21 @@ export default class Cell {
     this.x = x;
     this.y = y;
     this.walls = [true, true, true, true];
+    this.visited = false;
   }
 
   draw() {
     let { width, height, resolution } = this.canvas;
     let xStep = width / resolution;
     let yStep = height / resolution;
+
+    if (this.visited) {
+      this.p5.push();
+      this.p5.noStroke();
+      this.p5.fill("#BAD");
+      this.p5.rect(this.x * xStep, this.y * yStep, xStep, yStep);
+      this.p5.pop();
+    }
 
     // Line walls are drawn.
     this.walls.forEach((wall, i) => {
@@ -56,5 +65,23 @@ export default class Cell {
         }
       }
     });
+  }
+
+  // Highligths the cell.
+  highlight(color) {
+    let { width, height, resolution } = this.canvas;
+    let xStep = width / resolution;
+    let yStep = height / resolution;
+
+    this.p5.push();
+    this.p5.noStroke();
+    this.p5.fill(color);
+    this.p5.rect(
+      this.x * xStep + (xStep * 0.33) / 2,
+      this.y * yStep + (yStep * 0.33) / 2,
+      xStep - xStep * 0.33,
+      yStep - yStep * 0.33
+    );
+    this.p5.pop();
   }
 }
